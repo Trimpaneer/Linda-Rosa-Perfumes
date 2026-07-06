@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { products } from '@/data/products';
 import { ProductGrid } from '@/features/products/ProductGrid';
 import type { Metadata } from 'next';
@@ -25,7 +26,9 @@ export default function PerfumesPage() {
         </p>
       </div>
 
-      <ProductGrid products={products} />
+      <Suspense fallback={<div className="text-center font-sans text-sm text-[#888] py-20">Cargando catálogo...</div>}>
+        <ProductGrid products={products} />
+      </Suspense>
     </div>
   );
 }

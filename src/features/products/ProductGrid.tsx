@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/types';
 import { ProductCard } from './ProductCard';
 import { Input } from '@/components/ui/input';
@@ -27,9 +28,20 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 ];
 
 export function ProductGrid({ products }: ProductGridProps) {
+  const searchParams = useSearchParams();
+  const catParam = searchParams.get('cat') as Category | null;
+
   const [category, setCategory] = useState<Category | 'all'>('all');
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState<SortOption>('default');
+
+  useEffect(() => {
+    if (catParam && ['mujer', 'hombre', 'unisex'].includes(catParam)) {
+      setCategory(catParam);
+    } else {
+      setCategory('all');
+    }
+  }, [catParam]);
 
   const filtered = useMemo(() => {
     let result = [...products];
