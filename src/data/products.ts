@@ -320,125 +320,16 @@ export const products: Product[] = [
     size: '100ml',
     image: '/images/products/ck-one-essence-calvin-klein.webp',
   },
-
-  // ─── Ofertas 1x1 ─────────────────────────────────────────────────────────
-  {
-    id: 'erba-pura',
-    slug: 'erba-pura',
-    name: 'Erba Pura',
-    brand: 'Sospiro',
-    price: 200000,
-    stock: 3,
-    category: 'hombre',
-    type: 'oferta',
-    description: 'Un jardín mediterráneo en tu piel. Erba Pura combina notas de limón siciliano, flores blancas y almizcle en una fragancia que evoca verano y libertad.',
-    size: '100ml',
-    image: '/images/products/erba-pura.webp',
-  },
-  {
-    id: 'one-million',
-    slug: 'one-million',
-    name: 'One Million',
-    brand: 'Paco Rabanne',
-    price: 175000,
-    stock: 2,
-    category: 'hombre',
-    type: 'oferta',
-    description: 'El millón en un frasco. One Million de Paco Rabanne es la fragancia audaz y dorada para el hombre que lo tiene todo, con notas de pomelo, menta, canela y cuero.',
-    size: '100ml',
-    image: '/images/products/one-million.webp',
-  },
-  {
-    id: 'montale-tonka',
-    slug: 'montale-tonka',
-    name: 'Montale Tonka',
-    brand: 'Montale',
-    price: 180000,
-    stock: 1,
-    category: 'mujer',
-    type: 'oferta',
-    description: 'La calidez de la tonka en su expresión más pura. Montale Tonka es una fragancia femenina lujosa y envolvente con notas de haba tonka, vainilla y sándalo.',
-    size: '100ml',
-    image: '/images/products/montale-tonka.webp',
-  },
-  {
-    id: 'omnia-coral',
-    slug: 'omnia-coral',
-    name: 'Omnia Coral',
-    brand: 'Bvlgari',
-    price: 175000,
-    stock: 3,
-    category: 'mujer',
-    type: 'oferta',
-    description: 'La energía vibrante del coral convertida en fragancia. Omnia Coral de Bvlgari es fresca, femenina y luminosa con notas de hibisco, pomelo y madera de cachemir.',
-    size: '65ml',
-    image: '/images/products/omnia-coral.webp',
-  },
-  {
-    id: 'ariana-grande-cloud',
-    slug: 'ariana-grande-cloud',
-    name: 'Ariana Grande Cloud',
-    brand: 'Ariana Grande',
-    price: 160000,
-    stock: 2,
-    category: 'mujer',
-    type: 'oferta',
-    description: 'Flota en una nube de dulzura y feminidad. Cloud de Ariana Grande combina lavanda, pera, coco y vainilla en una fragancia soñadora y adictiva para ella.',
-    size: '100ml',
-    image: '/images/products/ariana-grande-cloud.webp',
-  },
-  {
-    id: 'ariana-grande-thank-u-next',
-    slug: 'ariana-grande-thank-u-next',
-    name: 'Ariana Grande Thank U Next',
-    brand: 'Ariana Grande',
-    price: 160000,
-    stock: 2,
-    category: 'mujer',
-    type: 'oferta',
-    description: 'Dulce, poderosa y empoderada. Thank U Next de Ariana Grande es una fragancia femenina con notas de frambuesa, rosa blanca, coco y almizcle que celebra la independencia.',
-    size: '100ml',
-    image: '/images/products/ariana-grande-thank-u-next.webp',
-  },
-  {
-    id: '212-vip-black',
-    slug: '212-vip-black',
-    name: '212 VIP Black',
-    brand: 'Carolina Herrera',
-    price: 180000,
-    stock: 1,
-    category: 'hombre',
-    type: 'oferta',
-    description: 'La fiesta más exclusiva en un frasco negro. 212 VIP Black de Carolina Herrera es intensa, lujosa y adictiva con notas de goma de mascar, flor de naranjo y vainilla negra.',
-    size: '100ml',
-    image: '/images/products/212-vip-black.webp',
-  },
-  {
-    id: 'la-vie-est-belle',
-    slug: 'la-vie-est-belle',
-    name: 'La Vie Est Belle',
-    brand: 'Lancôme',
-    price: 200000,
-    stock: 3,
-    category: 'mujer',
-    type: 'oferta',
-    description: 'La vida es bella, y este perfume lo celebra. La Vie Est Belle de Lancôme es un himno a la felicidad con notas de iris, pralinado y vainilla que enamoran desde el primer instante.',
-    size: '100ml',
-    image: '/images/products/la-vie-est-belle.webp',
-  },
 ];
 
-// Helpers de filtrado
+// Helpers de filtrado (fallback estático, usado cuando no hay DB configurada)
 export const getProductBySlug = (slug: string): Product | undefined =>
   products.find((p) => p.slug === slug);
 
 export const getFeaturedProducts = (): Product[] =>
-  products.filter((p) => p.featured && p.type === 'regular');
-
-export const getOfferProducts = (): Product[] =>
-  products.filter((p) => p.type === 'oferta');
+  products.filter((p) => p.featured && p.available !== false);
 
 export const getRelatedProducts = (product: Product, limit = 4): Product[] =>
   products
-    .filter((p) => p.id !== product.id && p.category === product.category)
+    .filter((p) => p.id !== product.id && p.category === product.category && p.available !== false)
     .slice(0, limit);

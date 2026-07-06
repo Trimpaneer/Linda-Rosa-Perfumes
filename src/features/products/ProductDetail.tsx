@@ -51,11 +51,7 @@ export function ProductDetail({ product, related }: ProductDetailProps) {
               priority
               className="object-contain p-8"
             />
-            {product.type === 'oferta' && (
-              <div className="absolute top-4 left-4 bg-[#C9A84C] text-white text-[9px] tracking-[0.2em] uppercase px-3 py-1.5 font-sans">
-                Oferta 1×1
-              </div>
-            )}
+
           </div>
 
           {/* Info */}

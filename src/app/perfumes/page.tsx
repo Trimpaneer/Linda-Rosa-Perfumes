@@ -11,12 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function PerfumesPage() {
-  // Primero regulares, luego ofertas
-  const sorted = [
-    ...products.filter((p) => p.type === 'regular'),
-    ...products.filter((p) => p.type === 'oferta'),
-  ];
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
@@ -31,7 +25,7 @@ export default function PerfumesPage() {
         </p>
       </div>
 
-      <ProductGrid products={sorted} />
+      <ProductGrid products={products} />
     </div>
   );
 }

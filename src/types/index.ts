@@ -1,5 +1,5 @@
 export type Category = 'mujer' | 'hombre' | 'unisex';
-export type ProductType = 'regular' | 'oferta';
+export type ProductType = 'regular';
 
 export interface Product {
   id: string;
@@ -9,11 +9,12 @@ export interface Product {
   price: number; // COP sin puntos, ej: 210000
   stock: number;
   category: Category;
-  type: ProductType; // 'regular' | 'oferta' (Ofertas 1x1)
+  type: ProductType;
   description: string;
   size?: string; // ej: "100ml"
   image: string; // "/images/products/nombre.webp"
   featured?: boolean;
+  available?: boolean; // controla visibilidad sin eliminar el producto
 }
 
 export interface CartItem {
